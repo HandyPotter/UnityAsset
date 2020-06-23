@@ -6,17 +6,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator anim;
-    int RP = 0;
-    float[] RPX = new float[15] { 0.0f, 0.0f, 0.0f,-0.3f, 0.1f,-0.3f, 0.1f, 0.2f,-0.4f,-0.7f,-0.6f, -0.2f, 0.0f, 0.0f, 0.6f};
-    float[] RPY = new float[15] { 0.9f, 1.0f, 0.8f, 1.0f, 0.8f, 1.0f, 0.7f, 0.4f, 0.3f,-0.6f, 1.0f, 0.0f, 0.2f, -0.4f, -1.1f };
+    int RP = 0;/// <summary>
+    /// ///////////////
+    /// </summary>
+    float[] RPX = new float[] { 0.0f, 0.0f, 0.0f, 0.3f, 0.1f,-0.3f, 0.1f, 0.2f,-0.4f,-0.7f,-0.6f,-0.2f, 0.0f, 0.0f, 1.0f, 0.6f, 0.0f, 0.0f,-0.45f,0.55f, 1.0f, 0.75f, 0.55f, 0.0f };
+    float[] RPY = new float[] { 0.9f, 1.0f, 0.8f, 1.0f, 0.8f, 1.0f, 0.7f, 0.4f, 0.3f,-0.6f, 1.0f, 0.0f, 0.2f,-0.4f,-1.0f, 0.1f,-0.2f, 0.0f,-0.15f, 0.9f, 0.0f,  0.5f,-0.15f, 0.6f };
     float RD = 0;
     float RH = 0;
     float RM = 0;
 
 
     int LP = 0;
-    float[] LPX = new float[15] { 0.0f, 0.0f, 0.0f,-0.3f,-0.3f, 0.3f,-0.3f,-0.4f, 0.1f, 0.2f, 0.2f, 0.3f, 0.0f, 0.0f,-1.0f };
-    float[] LPY = new float[15] { 0.9f, 1.0f, 0.8f, 1.0f, 0.9f, 0.8f, 0.8f, 0.5f, 0.2f,-0.1f, 0.6f, 0.0f, 0.0f,-0.4f,-1.0f };
+    float[] LPX = new float[] { 0.0f, 0.0f, 0.0f,-0.3f,-0.1f, 0.3f,-0.1f,-0.2f, 0.4f, 0.7f, 0.6f, 0.2f, 0.0f, 0.0f,-1.0f,-0.6f, 0.0f, 0.0f, 0.45f,-0.55f, -1.0f,-0.75f,-0.55f, 0.0f };
+    float[] LPY = new float[] { 0.9f, 1.0f, 0.8f, 1.0f, 0.8f, 1.0f, 0.7f, 0.4f, 0.3f,-0.6f, 1.0f, 0.0f, 0.2f,-0.4f,-1.0f, 0.1f,-0.2f, 0.0f,-0.15f,  0.9f,  0.0f,  0.5f,-0.15f, 0.6f };
     float LD = 0;
     float LH = 0;
     float LM = 0;
@@ -38,8 +40,29 @@ public class PlayerController : MonoBehaviour
     {   
         //controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
-        // insert data in queue;
+
         
+        rQuery = "H3+P6+D4+M20";
+        lQuery = "H3+P22+D3+M21";
+        rQueue.Enqueue(rQuery);
+        lQueue.Enqueue(lQuery);
+        /*
+        rQuery = "H0+P18+D12+M1";
+        lQuery = "H0+P0+D0+M0";
+        rQueue.Enqueue(rQuery);
+        lQueue.Enqueue(lQuery);
+
+        rQuery = "H1+P8+D8+M0";
+        lQuery = "H0+P0+D0+M0";
+        rQueue.Enqueue(rQuery);
+        lQueue.Enqueue(lQuery);
+
+        rQuery = "H4+P3+D13+M0";
+        lQuery = "H0+P0+D17+M0";
+        rQueue.Enqueue(rQuery);
+        lQueue.Enqueue(lQuery);*/
+        // insert data in queue;
+
     } 
 
     // Update is called once per frame
@@ -83,8 +106,17 @@ public class PlayerController : MonoBehaviour
             {
                 string tmp = spRQuary[i];
                 RP = int.Parse(tmp.Substring(1));
-                anim.SetFloat("RPX", RPX[RP - 1]);
-                anim.SetFloat("RPY", RPY[RP - 1]);
+                if(RP == 0)
+                {
+                    anim.SetFloat("RPX", 0.0f);
+                    anim.SetFloat("RPY", -1.5f);
+
+                }else
+                {
+                    anim.SetFloat("RPX", RPX[RP - 1]);
+                    anim.SetFloat("RPY", RPY[RP - 1]);
+                }
+               
             }
             if (spRQuary[i][0] == 'D')
             {
